@@ -19,7 +19,7 @@ class _WallScreenState extends State<WallScreen> {
       appBar: new AppBar(
         title: new Text("Wall"),
       ),
-      body: Wall([notesAero,notesCargas,notesControle]),//Center(child: MyGrid(context)),
+      body: Wall([notesCargas,notesCargas,notesControle]),//Center(child: MyGrid(context)),
       backgroundColor: Colors.grey[700],
       //bottomNavigationBar: AddBottomBar(),
     );
