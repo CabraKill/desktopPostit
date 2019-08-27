@@ -97,6 +97,7 @@ class Wall extends StatelessWidget {
   }
 
 
+
   Widget layoutVertical(context) {
     return LayoutBuilder(
       builder: (context, size) {
