@@ -96,9 +96,6 @@ class Wall extends StatelessWidget {
     );
   }
 
-//testando teste
-//testando teste
-
   Widget layoutVertical(context) {
     return LayoutBuilder(
       builder: (context, size) {
@@ -257,25 +254,40 @@ class Wall extends StatelessWidget {
         Container(
           width: size,
         ),
-        textPostIt(context, "Aerod.", Colors.purple, 0),
-        textPostIt(context, "Cargas.&Estr.", Colors.purple, 1),
-        textPostIt(context, "Contr.&Estab", Colors.purple, 0),
-        textPostIt(context, "P.Elétrico", Colors.purple, 1),
-        textPostIt(context, "T.I.", Colors.purple, 0),
-        textPostIt(context, "Marketing", Colors.purple, 1),
+        textPostIt(context, "Aerod.", Colors.purple, 1),
+        textPostIt(context, "Cargas.&Estr.", Colors.purple, 0),
+        textPostIt(context, "Contr.&Estab", Colors.purple, 1),
+        textPostIt(context, "P.Elétrico", Colors.purple, 0),
+        textPostIt(context, "T.I.", Colors.purple, 1),
+        textPostIt(context, "Marketing", Colors.purple, 0),
       ];
     else
       return [
-        textPostIt(context, "Aerod.", Colors.purple, 0),
-        textPostIt(context, "Cargas.&Estr.", Colors.purple, 1),
-        textPostIt(context, "Contr.&Estab", Colors.purple, 0),
-        textPostIt(context, "P.Elétrico", Colors.purple, 1),
-        textPostIt(context, "T.I.", Colors.purple, 0),
-        textPostIt(context, "Marketing", Colors.purple, 1),
+        textPostIt(context, "Aerod.", Colors.purple, 1),
+        textPostIt(context, "Cargas.&Estr.", Colors.purple, 0),
+        textPostIt(context, "Contr.&Estab", Colors.purple, 1),
+        textPostIt(context, "P.Elétrico", Colors.purple, 0),
+        textPostIt(context, "T.I.", Colors.purple, 1),
+        textPostIt(context, "Marketing", Colors.purple, 0),
       ];
   }
 
   List<Widget> _etapasPostit({context, double size, bool type = false}) {
+    /**
+   * Constructs a [DateTime] instance specified in the local time zone.
+   *
+   * For example,
+   * to create a new DateTime object representing the 7th of September 2017,
+   * 5:30pm
+   *
+   * ```
+   * var dentistAppointment = new DateTime(2017, 9, 7, 17, 30);
+   * ```
+   */
+  /// Retorna a lista de etapas de projeto
+  /// modelo padrão para horizontal
+  /// Faça type = true para vertical
+    
     if (type)
       return [
         textPostIt(context, "A fazer", Colors.purple, 1),
