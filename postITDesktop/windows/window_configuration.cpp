@@ -1,4 +1,4 @@
-// Copyright 2018 Google LLC
+// Copyright 2019 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,19 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import Cocoa
-import FlutterMacOS
+#include "window_configuration.h"
 
-class ExampleWindow: NSWindow {
-  override func awakeFromNib() {
-    let flutterViewController = FLEViewController.init()
-    let windowFrame = self.frame
-    self.contentViewController = flutterViewController
-    self.setFrame(windowFrame, display: true)
-
-    RegisterGeneratedPlugins(registry: flutterViewController)
-
-    super.awakeFromNib()
-  }
-}
-
+const wchar_t *kFlutterWindowTitle = L"Flutter Desktop Example";
+const unsigned int kFlutterWindowOriginX = 10;
+const unsigned int kFlutterWindowOriginY = 10;
+const unsigned int kFlutterWindowWidth = 800;
+const unsigned int kFlutterWindowHeight = 600;
