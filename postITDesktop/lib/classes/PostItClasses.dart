@@ -1,10 +1,10 @@
 class Notes{
   String text;
-  //primeira posição dia, segunda posição mês, terceira posição ano
-  List<int> date;
-  //primeira posição dia, segunda posição mês, terceira posição ano
-  List<int> deadline;
-  //0 para amarelo, 1 para vemelho, 2 para verde
+  ///primeira posição ano, segunda posição mês, terceira posição dia
+  DateTime date;
+  ///primeira posição ano, segunda posição mês, terceira posição dia
+  DateTime deadline;
+  ///0 para amarelo, 1 para vemelho, 2 para verde
   int color;
   Notes(this.text,this.date,this.deadline,this.color);
 }

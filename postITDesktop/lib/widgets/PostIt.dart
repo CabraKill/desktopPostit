@@ -8,7 +8,7 @@ class Wall extends StatelessWidget {
   Wall(this.notesEquipe);
 
   int proportion = 12;
-  var now = new DateTime.now();
+  DateTime now = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day);
 
   @override
   Widget build(BuildContext context) {
@@ -192,7 +192,7 @@ class Wall extends StatelessWidget {
     });
   }
 
-  Widget _postit(int color, text, List<int> date, List<int> deadline) {
+  Widget _postit(int color, text, DateTime date, DateTime deadline) {
     //print(now.day.toDouble().toString());
     return Container(
       decoration: BoxDecoration(
@@ -220,12 +220,12 @@ class Wall extends StatelessWidget {
                 fit: BoxFit.fill,
                 child: Slider(
                   inactiveColor: Colors.black,
-                  max: deadline[0].toDouble() - date[0].toDouble(),
+                  max: deadline.difference(date).inDays.toDouble(),
                   min: 0,
                   onChanged: (double value) {},
-                  value: (deadline[0].toDouble() - now.day.toDouble() < 0
-                      ? (deadline[0].toDouble() - date[0].toDouble())
-                      : (now.day.toDouble() - date[0].toDouble())),
+                  value: now.isAfter(deadline)
+                      ? deadline.difference(date).inDays.toDouble()
+                      : now.difference(date).inDays.toDouble(),
                 ),
               ),
             ),
@@ -233,12 +233,12 @@ class Wall extends StatelessWidget {
           Align(
             alignment: Alignment.topRight,
             child: Text(
-              deadline[0].toString() +
+              deadline.day.toString() +
                   "/" +
-                  deadline[1].toString() +
+                  deadline.month.toString() +
                   "/" +
-                  deadline[2].toString(),
-              style: TextStyle(color: Colors.grey[500]),
+                  deadline.year.toString(),
+              style: TextStyle(color: Colors.grey[700]),
             ),
           ),
         ],
