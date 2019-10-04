@@ -4,9 +4,12 @@ class Notes{
   DateTime date;
   ///primeira posição ano, segunda posição mês, terceira posição dia
   DateTime deadline;
+  ///primeira posição ano, segunda posição mês, terceira posição dia
+  DateTime done;
   ///0 para amarelo, 1 para vemelho, 2 para verde
-  int color;
-  Notes(this.text,this.date,this.deadline,this.color);
+  //int color;
+  //color no longer used since the math works inside the postit
+  Notes(this.text,this.date,this.deadline,this.done);
 }
 
 class NotesArea{

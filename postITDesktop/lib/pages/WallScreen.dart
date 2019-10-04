@@ -1,6 +1,6 @@
 //import 'package:example_flutter/widgets/WidgetsPostIT.dart';
-import 'package:example_flutter/classes/PostItClasses.dart';
-import 'package:example_flutter/widgets/PostIt.dart';
+import 'package:overIt/classes/PostItClasses.dart';
+import 'package:overIt/widgets/PostIt.dart';
 import 'package:flutter/material.dart';
 
 class WallScreen extends StatefulWidget {
@@ -11,20 +11,20 @@ class WallScreen extends StatefulWidget {
 class _WallScreenState extends State<WallScreen> {
   NotesArea notesAero = NotesArea([
     Notes(
-        "teste de estático", DateTime(2019, 08, 10), DateTime(2019, 08, 15), 0)
+        "teste de estático", DateTime(2019, 08, 10), DateTime(2019, 08, 15), null)
   ], [
-    Notes("teste dinâmico", DateTime(2019, 08, 10), DateTime(2019, 08, 15), 1)
+    Notes("teste dinâmico", DateTime(2019, 08, 10), DateTime(2019, 08, 15), null)
   ], [
-    Notes("teste dinâmico", DateTime(2019, 08, 10), DateTime(2019, 08, 15), 1)
+    Notes("teste dinâmico", DateTime(2019, 08, 10), DateTime(2019, 08, 15), null)
   ]);
   List<Notes> notesCargas = [
-    Notes("fazer asaaaa", DateTime(2019, 08, 1), DateTime(2019, 08, 11), 1),
-    Notes("fazer cronograma", DateTime(2019, 08, 1), DateTime(2019, 08, 11), 0),
-    Notes("fazer cronograma", DateTime(2019, 08, 1), DateTime(2019, 08, 11), 0),
-    Notes("fazer cronograma", DateTime(2019, 08, 1), DateTime(2019, 08, 11), 0)
+    Notes("fazer asaaaa", DateTime(2019, 08, 1), DateTime(2019, 08, 11), null),
+    Notes("fazer cronograma", DateTime(2019, 08, 1), DateTime(2019, 08, 11), null),
+    Notes("fazer cronograma", DateTime(2019, 08, 1), DateTime(2019, 08, 11), null),
+    Notes("fazer cronograma", DateTime(2019, 08, 1), DateTime(2019, 08, 11), null)
   ];
   List<Notes> notesControle = [
-    Notes("testar fuselagem", DateTime(2019, 08, 9), DateTime(2019, 10, 22), 2)
+    Notes("testar fuselagem", DateTime(2019, 08, 9), DateTime(2019, 10, 22), null)
   ];
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
-import 'package:example_flutter/classes/PostItClasses.dart';
+import 'package:overIt/classes/PostItClasses.dart';
 
 //import 'package:intl/intl.dart';
 class Wall extends StatelessWidget {
@@ -8,7 +8,8 @@ class Wall extends StatelessWidget {
   Wall(this.notesEquipe);
 
   int proportion = 12;
-  DateTime now = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day);
+  DateTime now =
+      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class Wall extends StatelessWidget {
               height: mySize,
               color: Colors.purple[500],
               child: new Row(
-                children: _etapasPostit(context: context,size: mySize),
+                children: _etapasPostit(context: context, size: mySize),
               ),
             ),
             Flexible(
@@ -42,7 +43,8 @@ class Wall extends StatelessWidget {
                       quarterTurns: 3,
                       child: Row(
                           mainAxisSize: MainAxisSize.min,
-                          children: _equipesPostit(context: context,size: mySize)),
+                          children:
+                              _equipesPostit(context: context, size: mySize)),
                     )),
                   ),
                   Flexible(
@@ -108,7 +110,10 @@ class Wall extends StatelessWidget {
                 height: mySize,
                 color: Colors.purple[500],
                 child: new Row(
-                    children: _equipesPostit(context: context,size: mySize,type: true)) //_etapasPostit(context, mySize),
+                    children: _equipesPostit(
+                        context: context,
+                        size: mySize,
+                        type: true)) //_etapasPostit(context, mySize),
                 ),
             Flexible(
               flex: 5,
@@ -121,7 +126,8 @@ class Wall extends StatelessWidget {
                       quarterTurns: 3,
                       child: Row(
                           mainAxisSize: MainAxisSize.min,
-                          children: _etapasPostit(context: context,size: mySize,type: true)),
+                          children: _etapasPostit(
+                              context: context, size: mySize, type: true)),
                     )),
                   ),
                   Flexible(
@@ -186,62 +192,97 @@ class Wall extends StatelessWidget {
     return List<Widget>.generate(equipe.length, (int i) {
       return Positioned.fill(
         top: dist * i,
-        child: _postit(equipe[i].color, equipe[i].text, equipe[i].date,
-            equipe[i].deadline),
+        child: _postit(
+            equipe[i].text, equipe[i].date, equipe[i].deadline, equipe[i].done),
       );
     });
   }
 
-  Widget _postit(int color, text, DateTime date, DateTime deadline) {
+  Widget _postit(text, DateTime date, DateTime deadline, DateTime done) {
     //print(now.day.toDouble().toString());
+    Color postitC = Colors.green[300];
+    if (done != null) {
+      postitC = Colors.green[300];
+
+      if (DateTime.now().difference(deadline).inDays > 0) {
+        postitC = Colors.red[300];
+      } else if (deadline.difference(DateTime.now()).inDays <=
+          (deadline.difference(date).inDays * 0.3).toInt())
+        postitC = Colors.yellow[300];
+    } else {
+      if (DateTime.now().difference(deadline).inDays > 0) {
+        postitC = Colors.red[300];
+      } else if (deadline.difference(DateTime.now()).inDays <=
+          (deadline.difference(date).inDays * 0.3).toInt())
+        postitC = Colors.yellow[300];
+    }
+
     return Container(
       decoration: BoxDecoration(
-          color: (color == 0
+          /*color: (color == 0
               ? Colors.yellow[300]
-              : (color == 1 ? Colors.red[300] : Colors.green[300])),
+              : (color == 1 ? Colors.red[300] : Colors.green[300])),*/
+
           border: new Border.all(color: Colors.grey[500], width: 5),
           borderRadius: BorderRadius.all(Radius.circular(13))),
-      child: Stack(
-        fit: StackFit.expand,
-        children: <Widget>[
-          Positioned(
-            top: 15,
-            left: 5,
-            child: Text(text),
-          ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: FractionallySizedBox(
-              widthFactor: 0.45,
-              heightFactor: 0.08,
-              //height: 30,
-              //width: 195,
-              child: FittedBox(
-                fit: BoxFit.fill,
-                child: Slider(
-                  inactiveColor: Colors.black,
-                  max: deadline.difference(date).inDays.toDouble(),
-                  min: 0,
-                  onChanged: (double value) {},
-                  value: now.isAfter(deadline)
-                      ? deadline.difference(date).inDays.toDouble()
-                      : now.difference(date).inDays.toDouble(),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          //print(constraints.maxHeight.toString() + ":" + text);
+          if (constraints.maxHeight > 200)
+            return Stack(
+              fit: StackFit.expand,
+              children: <Widget>[
+                Positioned(
+                  top: 15,
+                  left: 5,
+                  child: Text(text),
                 ),
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.topRight,
-            child: Text(
-              deadline.day.toString() +
-                  "/" +
-                  deadline.month.toString() +
-                  "/" +
-                  deadline.year.toString(),
-              style: TextStyle(color: Colors.grey[700]),
-            ),
-          ),
-        ],
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: FractionallySizedBox(
+                    widthFactor: 0.45,
+                    heightFactor: 0.08,
+                    //height: 30,
+                    //width: 195,
+                    child: FittedBox(
+                      fit: BoxFit.fill,
+                      child: Slider(
+                        inactiveColor: Colors.black,
+                        max: deadline.difference(date).inDays.toDouble(),
+                        min: 0,
+                        onChanged: (double value) {},
+                        value: now.isAfter(deadline)
+                            ? deadline.difference(date).inDays.toDouble()
+                            : now.difference(date).inDays.toDouble(),
+                      ),
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Text(
+                    deadline.day.toString() +
+                        "/" +
+                        deadline.month.toString() +
+                        "/" +
+                        deadline.year.toString(),
+                    style: TextStyle(color: Colors.grey[700]),
+                  ),
+                ),
+              ],
+            );
+          else
+            return Stack(
+              fit: StackFit.expand,
+              children: <Widget>[
+                Positioned(
+                  top: 5,
+                  left: 5,
+                  child: Text(text),
+                ),
+              ],
+            );
+        },
       ),
       //alignment: Alignment.topLeft,
       //padding: EdgeInsets.all(5),
@@ -284,10 +325,10 @@ class Wall extends StatelessWidget {
    * var dentistAppointment = new DateTime(2017, 9, 7, 17, 30);
    * ```
    */
-  /// Retorna a lista de etapas de projeto
-  /// modelo padrão para horizontal
-  /// Faça type = true para vertical
-    
+    /// Retorna a lista de etapas de projeto
+    /// modelo padrão para horizontal
+    /// Faça type = true para vertical
+
     if (type)
       return [
         textPostIt(context, "A fazer", Colors.purple, 1),
