@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import 'package:overIt/classes/PostItClasses.dart';
 
+import 'WidgetsPostIt.dart';
+
 //import 'package:intl/intl.dart';
+///Classe da pagina com a Wall responsiva dos PostIts
 class Wall extends StatelessWidget {
   List<List<Notes>> notesEquipe;
   Wall(this.notesEquipe);
 
+  ///Proporção de tamanho dos titulos de time e etapa
   int proportion = 12;
   DateTime now =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
@@ -17,6 +21,7 @@ class Wall extends StatelessWidget {
     return layoutVertical(context);
   }
 
+  ///Layout for a horizontal view
   Widget layoutHorizontal(context) {
     return LayoutBuilder(
       builder: (context, size) {
@@ -69,7 +74,7 @@ class Wall extends StatelessWidget {
                                     width: w,
                                     height: h,
                                     //color: Colors.green,
-                                    child: listStack(index),
+                                    child: listStack(context, index),
                                   ),
                                   Container(
                                     width: w,
@@ -98,6 +103,7 @@ class Wall extends StatelessWidget {
     );
   }
 
+  ///Layout for a horizontal view
   Widget layoutVertical(context) {
     return LayoutBuilder(
       builder: (context, size) {
@@ -152,7 +158,7 @@ class Wall extends StatelessWidget {
                                     width: w,
                                     height: h,
                                     //color: Colors.green,
-                                    child: listStack(index),
+                                    child: listStack(context, index),
                                   ),
                                   Container(
                                     width: w,
@@ -181,13 +187,88 @@ class Wall extends StatelessWidget {
     );
   }
 
-  Widget listStack(int equipe) {
-    return Stack(
-      fit: StackFit.expand,
-      children: listBuilder(notesEquipe[equipe], 40),
-    );
+  ///Cria o Stack com click dos postits espaçados
+  Widget listStack(context, int equipe) {
+    return InkWell(
+        onTap: () {
+          showDialog(
+              builder: (BuildContext context) => ListPostIDialog(
+                    list: List<Widget>.generate(notesEquipe[equipe].length,
+                        (int i) {
+                      return Container(
+                          //color: Colors.red,
+                          /*child: _postit(
+                              notesEquipe[equipe][i].text,
+                              notesEquipe[equipe][i].date,
+                              notesEquipe[equipe][i].deadline,
+                              notesEquipe[equipe][i].done)
+                          */
+                          //alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: Colors.pink,
+                            border: new Border.all(
+                                color: Colors.grey[500], width: 5),
+                            borderRadius: BorderRadius.all(Radius.circular(13)),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Slider(
+                                    inactiveColor: Colors.black,
+                                    max: notesEquipe[equipe][i]
+                                        .deadline
+                                        .difference(notesEquipe[equipe][i].date)
+                                        .inDays
+                                        .toDouble(),
+                                    min: 0,
+                                    onChanged: (double value) {},
+                                    value: now.isAfter(
+                                            notesEquipe[equipe][i].deadline)
+                                        ? notesEquipe[equipe][i]
+                                            .deadline
+                                            .difference(
+                                                notesEquipe[equipe][i].date)
+                                            .inDays
+                                            .toDouble()
+                                        : now
+                                            .difference(
+                                                notesEquipe[equipe][i].date)
+                                            .inDays
+                                            .toDouble(),
+                                  ),
+                                  Text(textTodate(
+                                      notesEquipe[equipe][i]
+                                          .deadline
+                                          .day
+                                          .toString(),
+                                      notesEquipe[equipe][i]
+                                          .deadline
+                                          .month
+                                          .toString(),
+                                      notesEquipe[equipe][i]
+                                          .deadline
+                                          .year
+                                          .toString()))
+                                ],
+                              ),
+                              Text("oi <3")
+                            ],
+                          ));
+                    }),
+                  ),
+              context: context);
+        },
+        child: Stack(
+          fit: StackFit.expand,
+          children: listBuilder(notesEquipe[equipe], 40),
+        ));
   }
 
+  ///Cria uma lista de widgets postIt espaçados
   List<Widget> listBuilder(List<Notes> equipe, double dist) {
     return List<Widget>.generate(equipe.length, (int i) {
       return Positioned.fill(
@@ -198,6 +279,7 @@ class Wall extends StatelessWidget {
     });
   }
 
+  ///Cria o postit responsivo com as informações
   Widget _postit(text, DateTime date, DateTime deadline, DateTime done) {
     //print(now.day.toDouble().toString());
     Color postitC = Colors.green[300];
@@ -219,10 +301,6 @@ class Wall extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-          /*color: (color == 0
-              ? Colors.yellow[300]
-              : (color == 1 ? Colors.red[300] : Colors.green[300])),*/
-
           border: new Border.all(color: Colors.grey[500], width: 5),
           borderRadius: BorderRadius.all(Radius.circular(13))),
       child: LayoutBuilder(
@@ -289,6 +367,7 @@ class Wall extends StatelessWidget {
     );
   }
 
+  ///Cria a lista responsiva em tamanho e orientação de widgets das Equipes
   List<Widget> _equipesPostit({context, double size, bool type = false}) {
     if (type)
       return [
@@ -313,6 +392,7 @@ class Wall extends StatelessWidget {
       ];
   }
 
+  ///Cria a lista responsiva em tamanho e orientação de widgets das Etapas
   List<Widget> _etapasPostit({context, double size, bool type = false}) {
     /**
    * Constructs a [DateTime] instance specified in the local time zone.
@@ -344,6 +424,7 @@ class Wall extends StatelessWidget {
       ];
   }
 
+  ///Cria um texto Responsivo em tamanho
   Widget textPostIt(context, text, color, int c) {
     int cc = c == 0 ? 500 : 600;
     return Expanded(

@@ -103,6 +103,11 @@ Widget WidgetGrid(context, i, List<Widget> listWidget) {
   );
 }
 
+String textTodate(String day, String month, String year) {
+  return day + "/" + month + "/" + year;
+}
+
+///Classe dialog da lista de postits de um grupo
 class ListPostIDialog extends StatelessWidget {
   final List<Widget> list;
 
@@ -120,7 +125,6 @@ class ListPostIDialog extends StatelessWidget {
         backgroundColor: Colors.transparent,
         child:
             BeutifuldialogContent(context, list) //dialogContent(context, list),
-
         );
   }
 
@@ -128,9 +132,15 @@ class ListPostIDialog extends StatelessWidget {
     return new Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        new ListView(
-          children: list,
-          shrinkWrap: true,
+        Container(
+          width: 1200,
+          height: 200,
+          color: Colors.green,
+          child: new ListView(
+            children: list,
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+          ),
         ),
         Container(
           decoration: BoxDecoration(
@@ -143,7 +153,7 @@ class ListPostIDialog extends StatelessWidget {
                 icon: Icon(Icons.add_box),
                 onPressed: () {
                   showDialog(
-                      builder: (BuildContext context) => PostIDialog(),
+                      builder: (BuildContext context) => PostItDialog(),
                       context: context);
                 },
               )
@@ -170,7 +180,8 @@ class ListPostIDialog extends StatelessWidget {
   }
 }
 
-class PostIDialog extends StatelessWidget {
+///Classe para criação de novos postits
+class PostItDialog extends StatelessWidget {
   //final List<Widget> list;
 
   //PostIDialog({
@@ -185,11 +196,11 @@ class PostIDialog extends StatelessWidget {
       ),*/
         elevation: 0.0,
         backgroundColor: Colors.transparent,
-        child: PostItDialogContent(context) //dialogContent(context, list),
+        child: postItDialogContent(context) //dialogContent(context, list),
         );
   }
 
-  Widget PostItDialogContent(context) {
+  Widget postItDialogContent(context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
@@ -271,8 +282,11 @@ Widget lista(List<Widget> l) {
 Widget postIt5(text) {
   return Container(
     //color: Colors.blue[100],
-    decoration: BoxDecoration(color: Colors.blue[100],borderRadius: BorderRadius.all(Radius.circular(15)),),
-        //border: new Border.all(width: 0), color: Colors.blue[900]),
+    decoration: BoxDecoration(
+      color: Colors.blue[100],
+      borderRadius: BorderRadius.all(Radius.circular(15)),
+    ),
+    //border: new Border.all(width: 0), color: Colors.blue[900]),
     child: Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
