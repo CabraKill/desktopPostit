@@ -133,15 +133,15 @@ class ListPostIDialog extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Container(
-          width: 1200,
-          height: 200,
-          color: Colors.green,
-          child: new ListView(
-            children: list,
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-          ),
-        ),
+            width: 1200,
+            height: 200,
+            child: Center(
+              child: new ListView(
+                children: list,
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+              ),
+            )),
         Container(
           decoration: BoxDecoration(
               color: Colors.white,

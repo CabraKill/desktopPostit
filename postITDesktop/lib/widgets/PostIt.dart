@@ -204,6 +204,7 @@ class Wall extends StatelessWidget {
                               notesEquipe[equipe][i].done)
                           */
                           //alignment: Alignment.center,
+                          width: 200,
                           decoration: BoxDecoration(
                             color: Colors.pink,
                             border: new Border.all(
@@ -217,29 +218,34 @@ class Wall extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
-                                  Slider(
-                                    inactiveColor: Colors.black,
-                                    max: notesEquipe[equipe][i]
-                                        .deadline
-                                        .difference(notesEquipe[equipe][i].date)
-                                        .inDays
-                                        .toDouble(),
-                                    min: 0,
-                                    onChanged: (double value) {},
-                                    value: now.isAfter(
-                                            notesEquipe[equipe][i].deadline)
-                                        ? notesEquipe[equipe][i]
-                                            .deadline
-                                            .difference(
-                                                notesEquipe[equipe][i].date)
-                                            .inDays
-                                            .toDouble()
-                                        : now
-                                            .difference(
-                                                notesEquipe[equipe][i].date)
-                                            .inDays
-                                            .toDouble(),
-                                  ),
+                                  Expanded(
+                                      child: Container(
+                                        alignment: Alignment.centerLeft,
+                                    child: Slider(
+                                      inactiveColor: Colors.black,
+                                      max: notesEquipe[equipe][i]
+                                          .deadline
+                                          .difference(
+                                              notesEquipe[equipe][i].date)
+                                          .inDays
+                                          .toDouble(),
+                                      min: 0,
+                                      onChanged: (double value) {},
+                                      value: now.isAfter(
+                                              notesEquipe[equipe][i].deadline)
+                                          ? notesEquipe[equipe][i]
+                                              .deadline
+                                              .difference(
+                                                  notesEquipe[equipe][i].date)
+                                              .inDays
+                                              .toDouble()
+                                          : now
+                                              .difference(
+                                                  notesEquipe[equipe][i].date)
+                                              .inDays
+                                              .toDouble(),
+                                    ),
+                                  )),
                                   Text(textTodate(
                                       notesEquipe[equipe][i]
                                           .deadline
@@ -255,7 +261,17 @@ class Wall extends StatelessWidget {
                                           .toString()))
                                 ],
                               ),
-                              Text("oi <3")
+                              Container(
+                                alignment: Alignment.topLeft,
+                                child: SingleChildScrollView(
+                                  child: Text(
+                                    "oiiii <3",
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.justify,
+                                    maxLines: 9,
+                                  ),
+                                ),
+                              )
                             ],
                           ));
                     }),
