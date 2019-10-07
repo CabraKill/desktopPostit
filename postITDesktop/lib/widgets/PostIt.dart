@@ -265,7 +265,7 @@ class Wall extends StatelessWidget {
                                 alignment: Alignment.topLeft,
                                 child: SingleChildScrollView(
                                   child: Text(
-                                    "oiiii <3",
+                                    notesEquipe[equipe][i].text,
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.justify,
                                     maxLines: 9,
