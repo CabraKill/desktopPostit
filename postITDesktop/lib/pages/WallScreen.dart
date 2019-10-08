@@ -10,21 +10,25 @@ class WallScreen extends StatefulWidget {
 
 class _WallScreenState extends State<WallScreen> {
   NotesArea notesAero = NotesArea([
-    Notes(
+    Note(
         "teste de estático", DateTime(2019, 08, 10), DateTime(2019, 08, 15), null)
   ], [
-    Notes("teste dinâmico", DateTime(2019, 08, 10), DateTime(2019, 08, 15), null)
+    Note("teste dinâmico", DateTime(2019, 08, 10), DateTime(2019, 08, 15), null)
   ], [
-    Notes("teste dinâmico", DateTime(2019, 08, 10), DateTime(2019, 08, 15), null)
+    Note("teste dinâmico", DateTime(2019, 08, 10), DateTime(2019, 08, 15), null)
   ]);
-  List<Notes> notesCargas = [
-    Notes("fazer asaaaa", DateTime(2019, 08, 1), DateTime(2019, 08, 11), null),
-    Notes("fazer cronograma", DateTime(2019, 08, 1), DateTime(2019, 08, 11), null),
-    Notes("fazer cronograma", DateTime(2019, 08, 1), DateTime(2019, 08, 11), null),
-    Notes("fazer cronograma", DateTime(2019, 08, 1), DateTime(2019, 08, 11), null)
+  List<Note> notesCargas = [
+    Note("fazer asa direita", DateTime(2019, 08, 1), DateTime(2019, 08, 11), null),
+    Note("cronograma de eletrica", DateTime(2019, 08, 1), DateTime(2019, 10, 22), null),
+    Note("pesar cargas", DateTime(2019, 08, 1), DateTime(2019, 10, 31), null),
+    Note("cronograma geral", DateTime(2019, 10, 1), DateTime(2019, 10, 31), null)
   ];
-  List<Notes> notesControle = [
-    Notes("testar fuselagem", DateTime(2019, 08, 9), DateTime(2019, 10, 22), null)
+  List<Note> notesControle = [
+    Note("testar fuselagem", DateTime(2019, 08, 9), DateTime(2019, 10, 15), null)
+  ];
+
+  List<Note> notesTI = [
+    Note("testar fuselagem", DateTime(2019, 08, 9), DateTime(2019, 10, 22), DateTime(2019, 08, 12))
   ];
   @override
   Widget build(BuildContext context) {
@@ -35,7 +39,7 @@ class _WallScreenState extends State<WallScreen> {
       body: Wall([
         notesCargas,
         notesControle,
-        notesControle
+        notesTI
       ]), //Center(child: MyGrid(context)),
       backgroundColor: Colors.grey[700],
       //bottomNavigationBar: AddBottomBar(),

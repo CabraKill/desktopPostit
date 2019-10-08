@@ -7,7 +7,7 @@ import 'WidgetsPostIt.dart';
 //import 'package:intl/intl.dart';
 ///Classe da pagina com a Wall responsiva dos PostIts
 class Wall extends StatelessWidget {
-  List<List<Notes>> notesEquipe;
+  List<List<Note>> notesEquipe;
   Wall(this.notesEquipe);
 
   ///Proporção de tamanho dos titulos de time e etapa
@@ -195,6 +195,43 @@ class Wall extends StatelessWidget {
               builder: (BuildContext context) => ListPostIDialog(
                     list: List<Widget>.generate(notesEquipe[equipe].length,
                         (int i) {
+                      Color postitC = Colors.green[300];
+                      if (notesEquipe[equipe][i].done != null) {
+                        postitC = Colors.green[300];
+
+                        if (notesEquipe[equipe][i]
+                                .deadline
+                                .difference(notesEquipe[equipe][i].done)
+                                .inDays <
+                            0) {
+                          postitC = Colors.red[300];
+                        } else if (notesEquipe[equipe][i]
+                                .deadline
+                                .difference(notesEquipe[equipe][i].done)
+                                .inDays <=
+                            (notesEquipe[equipe][i]
+                                        .deadline
+                                        .difference(notesEquipe[equipe][i].date)
+                                        .inDays *
+                                    0.3)
+                                .toInt()) postitC = Colors.yellow[300];
+                      } else {
+                        if (DateTime.now()
+                                .difference(notesEquipe[equipe][i].deadline)
+                                .inDays >
+                            0) {
+                          postitC = Colors.red[300];
+                        } else if (notesEquipe[equipe][i]
+                                .deadline
+                                .difference(DateTime.now())
+                                .inDays <=
+                            (notesEquipe[equipe][i]
+                                        .deadline
+                                        .difference(notesEquipe[equipe][i].date)
+                                        .inDays *
+                                    0.3)
+                                .toInt()) postitC = Colors.yellow[300];
+                      }
                       return Container(
                           //color: Colors.red,
                           /*child: _postit(
@@ -206,7 +243,7 @@ class Wall extends StatelessWidget {
                           //alignment: Alignment.center,
                           width: 200,
                           decoration: BoxDecoration(
-                            color: Colors.pink,
+                            color: postitC,
                             border: new Border.all(
                                 color: Colors.grey[500], width: 5),
                             borderRadius: BorderRadius.all(Radius.circular(13)),
@@ -220,7 +257,7 @@ class Wall extends StatelessWidget {
                                 children: <Widget>[
                                   Expanded(
                                       child: Container(
-                                        alignment: Alignment.centerLeft,
+                                    alignment: Alignment.centerLeft,
                                     child: Slider(
                                       inactiveColor: Colors.black,
                                       max: notesEquipe[equipe][i]
@@ -285,7 +322,7 @@ class Wall extends StatelessWidget {
   }
 
   ///Cria uma lista de widgets postIt espaçados
-  List<Widget> listBuilder(List<Notes> equipe, double dist) {
+  List<Widget> listBuilder(List<Note> equipe, double dist) {
     return List<Widget>.generate(equipe.length, (int i) {
       return Positioned.fill(
         top: dist * i,
@@ -302,9 +339,9 @@ class Wall extends StatelessWidget {
     if (done != null) {
       postitC = Colors.green[300];
 
-      if (DateTime.now().difference(deadline).inDays > 0) {
+      if (deadline.difference(done).inDays < 0) {
         postitC = Colors.red[300];
-      } else if (deadline.difference(DateTime.now()).inDays <=
+      } else if (deadline.difference(done).inDays <=
           (deadline.difference(date).inDays * 0.3).toInt())
         postitC = Colors.yellow[300];
     } else {
@@ -317,6 +354,7 @@ class Wall extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
+          color: postitC,
           border: new Border.all(color: Colors.grey[500], width: 5),
           borderRadius: BorderRadius.all(Radius.circular(13))),
       child: LayoutBuilder(
@@ -427,16 +465,16 @@ class Wall extends StatelessWidget {
 
     if (type)
       return [
-        textPostIt(context, "A fazer", Colors.purple, 1),
-        textPostIt(context, "Fazendo", Colors.purple, 0),
         textPostIt(context, "Feito", Colors.purple, 1),
+        textPostIt(context, "Fazendo", Colors.purple, 0),
+        textPostIt(context, "A fazer", Colors.purple, 1),
       ];
     else
       return [
         Container(width: size),
-        textPostIt(context, "A fazer", Colors.purple, 0),
-        textPostIt(context, "Fazendo", Colors.purple, 1),
         textPostIt(context, "Feito", Colors.purple, 0),
+        textPostIt(context, "Fazendo", Colors.purple, 1),
+        textPostIt(context, "A fazer", Colors.purple, 0),
       ];
   }
 
