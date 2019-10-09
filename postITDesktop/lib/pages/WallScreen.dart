@@ -2,6 +2,9 @@
 import 'package:overIt/classes/PostItClasses.dart';
 import 'package:overIt/widgets/PostIt.dart';
 import 'package:flutter/material.dart';
+import 'package:overIt/blocs/blocPostIt.dart';
+
+//PostItEventt a = PostItEvent(type: 1,add)
 
 class WallScreen extends StatefulWidget {
   @override
@@ -33,9 +36,9 @@ class _WallScreenState extends State<WallScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: new AppBar(
+      /*appBar: new AppBar(
         title: new Text("Wall"),
-      ),
+      ),*/
       body: Wall([
         notesCargas,
         notesControle,
